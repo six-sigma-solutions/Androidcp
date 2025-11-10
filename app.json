@@ -1,0 +1,86 @@
+{
+  "expo": {
+    "name": "DM",
+    "slug": "daily-money-app",
+    "icon": "./assets/dailymoney.png",
+    "version": "1.0.0",
+    "orientation": "default",
+    "scheme": "dailymoneyapp",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "requireFullScreen": false,
+      "bundleIdentifier": "com.sathish2882sk.dailymoneyapp",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "background-fetch"
+        ],
+        "NSCameraUsageDescription": "This app needs camera access to take photos.",
+        "NSPhotoLibraryUsageDescription": "This app needs photo library access to select images.",
+        "ITSAppUsesNonExemptEncryption": false,
+        "UISupportedInterfaceOrientations": [
+          "UIInterfaceOrientationPortrait",
+          "UIInterfaceOrientationLandscapeLeft",
+          "UIInterfaceOrientationLandscapeRight"
+        ],
+        "UISupportedInterfaceOrientations~ipad": [
+          "UIInterfaceOrientationPortrait",
+          "UIInterfaceOrientationPortraitUpsideDown",
+          "UIInterfaceOrientationLandscapeLeft",
+          "UIInterfaceOrientationLandscapeRight"
+        ]
+      }
+    },
+    "android": {
+      "package": "com.sathish2882sk.dailymoneyapp",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/dailymoney.png",
+        "backgroundColor": "#E6F4FE"
+      },
+      "permissions": [
+        "INTERNET"
+      ],
+      "googleServicesFile": "./android/app/google-services.json"
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/dailymoney.png"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "infoPlist": {
+              "ITSAppUsesNonExemptEncryption": false
+            }
+          }
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/dailymoney.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      "expo-router",
+      [
+        "expo-video",
+        {
+          "supportsBackgroundPlayback": true,
+          "supportsPictureInPicture": true
+        }
+      ]
+    ],
+    "sdkVersion": "54.0.0",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "e6554362-f345-4542-bb9d-49965b2aec11"
+      }
+    }
+  }
+}
