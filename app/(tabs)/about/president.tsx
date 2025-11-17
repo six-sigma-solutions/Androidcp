@@ -123,8 +123,8 @@ const styles = StyleSheet.create({
   signatureTitle: { fontSize: 14, color: '#fff' },
 
   viewMoreLink: { alignItems: 'center', marginVertical: 16 },
-  viewMoreBtn: { backgroundColor: '#ff9900', paddingVertical: 12, paddingHorizontal: 32, borderRadius: 50 },
-  viewMoreText: { color: '#000', fontWeight: '700', fontSize: 16 },
+  viewMoreBtn: { backgroundColor: '#0b3a55', paddingVertical: 12, paddingHorizontal: 32, borderRadius: 50 },
+  viewMoreText: { color: '#fff', fontWeight: '700', fontSize: 16 },
 
   cardFooterBg: { backgroundColor: '#1f2937', paddingVertical: 24, alignItems: 'center' },
   footerLogo: { width: 60, height: 60, resizeMode: 'contain', marginBottom: 12 },

@@ -40,6 +40,14 @@ export default function AboutLayout() {
         name="vision"
         options={{ title: "Vision & Mission" }}
       />
+      <MaterialTopTabs.Screen
+        name="core-team"
+        options={{ title: "Core Team" }}
+      />
+      <MaterialTopTabs.Screen
+        name="core-values"
+        options={{ title: "Core Values" }}
+      />  
     </MaterialTopTabs>
   );
 }

@@ -1,8 +1,9 @@
+// Utility style for full dynamic image fit
+export const fullImage = { width: '100%', height: '100%', resizeMode: 'cover' };
+
+// Usage: <Image source={...} style={fullImage} />
 
 import { useRouter } from 'expo-router';
-import { useAuth } from '../contexts/AuthContext';
-import { signOut } from 'firebase/auth';
-import { auth } from '../lib/firebase';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
@@ -12,7 +13,7 @@ type DrawerMenuProps = {
 
 function DrawerMenu({ onClose }: DrawerMenuProps) {
   const router = useRouter();
-  const { user } = useAuth();
+  
   const handleNavigate = (to: string) => {
     console.log(`[DrawerMenu] Attempting to navigate to: ${to}`);
     let finalRoute = null;
@@ -37,24 +38,7 @@ function DrawerMenu({ onClose }: DrawerMenuProps) {
     }
   };
 
-  const handleSignOut = async () => {
-    try {
-      console.log('[DrawerMenu] Attempting to sign out...');
-      await signOut(auth);
-      console.log('[DrawerMenu] Firebase signOut completed');
-      
-      if (onClose) onClose();
-      
-      // Manual navigation as backup
-      console.log('[DrawerMenu] Manually navigating to signin...');
-      router.replace('/signin');
-      
-      console.log('[DrawerMenu] Sign out successful');
-    } catch (e) {
-      console.error('[DrawerMenu] Sign out error:', e);
-      Alert.alert('Sign out failed', typeof e === 'object' && e && 'message' in e ? (e as any).message : String(e));
-    }
-  };
+  // Sign out functionality removed - direct home page access
 
   return (
     <ScrollView
@@ -74,17 +58,15 @@ function DrawerMenu({ onClose }: DrawerMenuProps) {
           style={styles.hamburger}
           accessibilityLabel="Close menu"
         >
-          <Ionicons name="close" size={28} color="#333" />
+          <Ionicons name="close" size={28} color="#fff" />
         </TouchableOpacity>
       </View>
-      {/* Profile/Sign out/Contact */}
+      {/* Profile/Contact - Sign out removed */}
       <View style={styles.profileRow}>
-        <Ionicons name="person-circle-outline" size={24} color="#333" />
-        <TouchableOpacity onPress={handleSignOut}>
-          <Text style={styles.signOut}>Sign Out</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigate('contact')}>
-          <MaterialIcons name="call" size={22} color="#333" style={{ marginLeft: 12 }} />
+  <Ionicons name="person-circle-outline" size={24} color="#fff" />
+        <Text style={styles.welcomeText}>Welcome to DM</Text>
+        <TouchableOpacity onPress={() => handleNavigate('contact')} style={styles.contactButton}>
+          <MaterialIcons name="call" size={22} color="#fff" />
         </TouchableOpacity>
       </View>
       {/* Main Links */}
@@ -133,18 +115,25 @@ function DrawerMenu({ onClose }: DrawerMenuProps) {
         <TouchableOpacity style={styles.link} onPress={() => handleNavigate('about/overview')}>
           <Text style={styles.subLinkText}>Overview</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.link} onPress={() => handleNavigate('about/founders-message')}>
-          <Text style={styles.subLinkText}>Founder's Message</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.link} onPress={() => handleNavigate('about/president-message')}>
-          <Text style={styles.subLinkText}>President Message</Text>
-        </TouchableOpacity>
         <TouchableOpacity 
-          style={[styles.link, { backgroundColor: '#f8f9fa', borderRadius: 4 }]} 
-          onPress={() => handleNavigate('about/vision-mission')}
+          style={[styles.link]} 
+          onPress={() => handleNavigate('about/vision')}
         >
           <Text style={[styles.subLinkText, { fontWeight: '600' }]}>Vision & Mission</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.link} onPress={() => handleNavigate('about/founders')}>
+          <Text style={styles.subLinkText}>Founder's Message</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.link} onPress={() => handleNavigate('about/president')}>
+          <Text style={styles.subLinkText}>President's Message</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.link} onPress={() => handleNavigate('about/core-team')}>
+          <Text style={styles.subLinkText}>Core Team</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.link, { backgroundColor: '#b70404ff', borderRadius: 4 }]} onPress={() => handleNavigate('about/core-values')}>
+          <Text style={styles.subLinkText}>Core Values</Text>
+        </TouchableOpacity>
+
        
         
         
@@ -156,14 +145,14 @@ function DrawerMenu({ onClose }: DrawerMenuProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: '#131d35ff', // dark blue
     paddingTop: 30,
     paddingHorizontal: 10,
     minHeight: 300,
     maxHeight: 540,
     minWidth: 260,
     alignSelf: 'center',
-    borderRadius: 12,
+    borderRadius: 18,
     marginTop: 20,
     marginBottom: 10,
     // shadow for iOS
@@ -184,8 +173,8 @@ const styles = StyleSheet.create({
   logo: {
     fontWeight: 'bold',
     fontSize: 22,
-    color: '#333',
-    backgroundColor: '#eee',
+    color: '#fff',
+    backgroundColor: '#db12c1ff', // lighter blue
     borderRadius: 8,
     paddingHorizontal: 10,
     paddingVertical: 2,
@@ -199,33 +188,54 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     gap: 8,
   },
-  signOut: {
+  welcomeText: {
     marginLeft: 8,
-    color: '#333',
+    color: '#e9e2e3ff',
     fontWeight: 'bold',
+    fontSize: 16,
   },
   link: {
     paddingVertical: 8,
     paddingLeft: 8,
+    backgroundColor: '#162447', // dark blue for all menu items
+    borderRadius: 12,
+    marginBottom: 10,
   },
   linkRow: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 8,
     paddingLeft: 8,
+    backgroundColor: '#162447',
+    borderRadius: 12,
+    marginBottom: 10,
   },
   linkText: {
     fontSize: 18,
-    color: '#222',
+    color: '#fff',
   },
   subMenu: {
-    paddingLeft: 18,
+    paddingLeft: 8,
     paddingBottom: 10,
+    backgroundColor: '#162447',
+    borderRadius: 12,
+    marginBottom: 10,
   },
   subLinkText: {
     fontSize: 16,
-    color: '#444',
+    color: '#c7d0e0',
     paddingVertical: 2,
+  },
+  // Add highlight style for active/selected items if needed
+  activeLink: {
+  },
+  contactButton: {
+    backgroundColor: '#1ec773', // green
+    borderRadius: 20,
+    padding: 6,
+    marginLeft: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

@@ -146,7 +146,7 @@ export default function Contact() {
     const body = encodeURIComponent(
       `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.countryCode} ${form.phone}\nCompany: ${form.company}\n\nMessage:\n${form.message}`
     );
-    const mailtoUrl = `mailto:sixsigmaspvs@gmail.com?subject=${subject}&body=${body}`;
+    const mailtoUrl = `mailto:support@dmhealthy.com?subject=${subject}&body=${body}`;
 
     Linking.openURL(mailtoUrl)
       .then(() => {

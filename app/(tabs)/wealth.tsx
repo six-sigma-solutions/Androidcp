@@ -13,7 +13,7 @@ export default function Wealth() {
     {
       image: require("../../assets/wealth1.png"),
       text:
-        "Wealth is more than numbers in a bank account. It is the freedom to choose our path, the security to protect what matters and the power to create a lasting impact.",
+        "Wealth is more than numbers in a bank account. It is the freedom to choose our path, the security to protect what matters and the \npower to create a lasting impact.",
     },
     {
       image: require("../../assets/wealth2.png"),
@@ -28,7 +28,7 @@ export default function Wealth() {
     {
       image: require("../../assets/wealth4.png"),
       text:
-        "Wealth is not greed it is growth. It is not selfishness, it's stewardship. When guided by purpose, wealth becomes a force for freedom, impact and legacy. Our wealth is our power to live with dignity, give with generosity and build a future that outlives us.",
+        "Wealth is not greed it is growth. It is not selfishness, it's stewardship. When guided by purpose, wealth becomes a force for freedom, impact and legacy. Our wealth is   our power to live with dignity, give with generosity and build a future that outlives us.",
     },
   ];
 
@@ -60,11 +60,16 @@ export default function Wealth() {
           />
           {!!section.text && (
             <View style={styles.textBox}>
-              <Text style={styles.text}>{section.text}</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'flex-start', flex: 1 }}>
+                <Text style={styles.tick}>✓</Text>
+                <Text style={styles.text} numberOfLines={null} ellipsizeMode="tail">{section.text}</Text>
+              </View>
             </View>
           )}
         </View>
+
       ))}
+
 
       {/* View More Button (kept your original route) */}
       <View style={styles.viewMoreWrap}>
@@ -96,51 +101,57 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fafafa" },
 
   header: {
-    backgroundColor: "#0b3550",
-    paddingVertical: 10,
+    backgroundColor: "#047871",
+    paddingVertical: -5,
+    paddingHorizontal: 19,
+    borderRadius: 28,
     alignItems: "center",
+    justifyContent: 'center',
+    alignSelf: 'center',
+    maxWidth: '90%',
+    marginTop: 20,
+    marginBottom: 20,
   },
   headerText: {
     color: "#fff",
-    fontSize: 26,
+    fontSize: 35,
     fontWeight: "700",
     textAlign: "center",
     padding: 25,
   },
 
   sectionCard: {
-    backgroundColor: "#fff",
+    backgroundColor: "#888888",
     borderRadius: 20,
     marginHorizontal: 16,
     marginVertical: 12,
     paddingBottom: 16,
-  
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 5,
     alignItems: "center",
-     
-  
     borderWidth: 2,
-   
-      
   },
 
   image: {
     width: "95%",
     height: 550,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
     resizeMode: "cover",
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    borderWidth: 2,
     alignSelf: "center",
     marginTop: 12,
     marginBottom: 8,
     backgroundColor: "#fff",
-    
+    borderTopLeftRadius: 120,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 80,
+    overflow: "hidden",
+    borderWidth: 2,
+    shadowColor: "#000",
+    shadowOpacity: 0.10,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
   },
 
   heroImageWrap: {
@@ -151,41 +162,61 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   heroImage: {
-    width: "95%",
+    width: "90%",
     height: 250,
-    borderRadius: 28,
     resizeMode: "cover",
     alignSelf: "center",
     marginTop: 10,
     marginBottom: 10,
+    borderTopLeftRadius: 110,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 70,
+    overflow: "hidden",
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOpacity: 0.10,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
   },
 
   lastSectionCard: {
-    backgroundColor: "#f5f5f5",
-  //  borderColor: "#0b3a55",
+    backgroundColor: "#888888",
     borderWidth: 2,
-   // shadowColor: "#0b3a55",
     shadowOpacity: 0.18,
     shadowRadius: 8,
     elevation: 8,
   },
   lastImage: {
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    borderWidth: 2,
-   
-    width: "90%",
+    width: "95%",
     height: 500,
     alignSelf: "center",
     marginTop: 12,
     marginBottom: 8,
     backgroundColor: "#fff",
+    borderTopLeftRadius: 110,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 80,
+    overflow: "hidden",
+    borderWidth: 1,
+    shadowColor: "#000",
+    shadowOpacity: 0.10,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
   },
 
-  textBox: { padding: 14 },
-  text: { fontSize: 15, lineHeight: 24, fontWeight: "600", justifyContent: "center", color: "#333" , textAlign:"justify" },
+  textBox: { padding: 14, width: '100%' },
+  text: {
+    fontSize: 17,
+    lineHeight: 27,
+    fontWeight: "600",
+    color: "#fff",
+    textAlign: "justify",
+    marginVertical: 5,
+    flexShrink: 1,
+    flex: 1,
+  },
 
   viewMoreWrap: { alignItems: "center", marginVertical: 30 },
   viewMoreBtn: {
@@ -209,4 +240,12 @@ const styles = StyleSheet.create({
   },
   footerTitle: { fontSize: 20, fontWeight: "700", color: "#fffb2c", marginTop: -15 },
   footerSubtitle: { fontSize: 16, fontWeight: "700", color: "#fffb2c" },
+
+  tick: {
+    color: '#fff',
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginRight: 5,
+    marginTop: 9,
+  },
 });

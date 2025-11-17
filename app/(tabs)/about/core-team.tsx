@@ -1,13 +1,11 @@
 import { useEffect } from "react";
 import { useRouter } from "expo-router";
-import { View, ActivityIndicator } from "react-native"; 
 
-export default function VisionMissionRedirect() {
+export default function CoreTeamRedirect() {
   const router = useRouter();
   useEffect(() => {
     // Redirect to home page
-    router.replace("/(tabs)/home");
+    router.replace("/home");
   }, [router]);
   return null;
 }
-

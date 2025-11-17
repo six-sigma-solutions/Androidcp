@@ -72,13 +72,13 @@ export default function Overview() {
         >
           <Text style={[styles.title, { color: section.color }]}>{section.title}</Text>
           <Text style={styles.text}>{section.text}</Text>
-          <Image 
-            source={section.img} 
+          <Image
+            source={section.img}
             style={[
               styles.image,
-              index === 1 && { height: 200, width: "100%" }
-            ]} 
-            resizeMode="cover" 
+              index === 1 && styles.imageSecond
+            ]}
+            resizeMode="cover"
           />
         </Animated.View>
       ))}
@@ -109,8 +109,8 @@ export default function Overview() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fafafa" },
 
-  header: { marginVertical: 20, paddingHorizontal: 20 },
-  headerText: { fontSize: 26, fontWeight: "700", textAlign: "center", color: "forestgreen" },
+  header: { marginVertical: 10, paddingHorizontal: 20,backgroundColor:'#047871', borderRadius:8, alignItems:'center', justifyContent:'center', },
+  headerText: { fontSize: 46, fontWeight: "700", textAlign: "center", color: "#fff" },
 
   card: {
     backgroundColor: "#fff",
@@ -129,10 +129,33 @@ const styles = StyleSheet.create({
   title: { fontSize: 20, fontWeight: "700", marginBottom: 10, textAlign: "center" },
   text: { fontSize: 14, lineHeight: 25, textAlign: "justify", color: "#0f172a", marginBottom: 15, fontWeight: "500" },
 
-  image: { width: "100%", height: 200, borderRadius: 10 },
+  image: {
+    width: '100%',
+    height: 250,
+    borderRadius: 19,
+    borderTopLeftRadius: 60,
+    borderBottomRightRadius: 60,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 0,
+    alignSelf: 'center',
+    marginVertical: 8,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 5,
+    elevation: 3,
+    marginHorizontal:13,
+  },
+
+  imageSecond: {
+    height: 250,
+    width: '100%',
+    alignSelf: 'center',
+  },
 
   buttonWrap: { alignItems: "center", marginVertical: 30 },
-  button: { backgroundColor: "#4caf50", paddingVertical: 12, paddingHorizontal: 30, borderRadius: 30 },
+  button: { backgroundColor: "#0b3a55", paddingVertical: 12, paddingHorizontal: 30, borderRadius: 30 },
   buttonText: { color: "#fff", fontSize: 16, fontWeight: "600" },
 
   footer: { alignItems: "center", paddingVertical: 30 ,backgroundColor:'#1f2937'},

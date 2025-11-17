@@ -47,37 +47,42 @@ export default function Family() {
     <AutoScrollView style={styles.container}>
       {/* Header Section */}
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>{"Our family".replace(/["']/g, "")}</Text>
-        <Text style={styles.subtitle}>{"True prosperity begins with good health and grows with financial freedom. With our transparent, collaborative approach, we bring your vision to life. Guided by our three-phase methodology, we consistently deliver value and adapt to change building the best world:".replace(/["']/g, "")}</Text>
-        {/* Separate line for highlight text */}
-        <View style={{ marginTop: 8 }}>
-          <Text style={styles.highlightText}>{"Healthier, Happier and Wealthier".replace(/["']/g, "")}</Text>
+        <View style={styles.familyBox}>
+          <Text style={styles.familyBoxText}>Our Family</Text>
         </View>
+        <Text style={styles.protectGrowProsper}>Protect. Grow. Prosper</Text>
       </View>
      
 
       {/* Family Steps */}
       {steps.map((step) => (
         <View key={step.id} style={styles.step}>
-          <Image 
-            source={step.img} 
+          <Image
+            source={step.img}
             style={[
-              step.id === 1 ? styles.family1Image : styles.imageTop, 
-              step.id === 1 
-                ? { 
-                    height: isTablet ? 400 : isPhone ? 240 : 300,
-                    width: isTablet ? '100%' : isPhone ? '95%' : '90%'
-                  }
-                : step.id === 2
-                ? {
-                    height: isTablet ? 400 : isPhone ? 200 : 220,
-                    width: isTablet ? '100%' : isPhone ? '95%' : '90%'
-                  }
-                : { 
-                    height: isTablet ? 450 : isPhone ? 250 : 300,
-                    width: isTablet ? '100%' : isPhone ? '95%' : '90%'
-                  }
-            ]} 
+              styles.familyImageCard,
+              {
+                height:
+                  step.id === 2
+                    ? isTablet
+                      ? 520
+                      : isPhone
+                      ? 223
+                      : 350
+                    : step.id === 1
+                    ? isTablet
+                      ? 400
+                      : isPhone
+                      ? 240
+                      : 300
+                    : isTablet
+                    ? 450
+                    : isPhone
+                    ? 250
+                    : 300,
+                width: isTablet ? '100%' : isPhone ? '95%' : '90%',
+              },
+            ]}
           />
           <View style={styles.textContainer}>
             <Text style={styles.quote}>{step.quote.replace(/["']/g, "")}</Text>
@@ -121,13 +126,27 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
   },
-  headerTitle: {
-    fontSize: 35,
-    color: '#d40000',
+  familyBox: {
+    backgroundColor: '#08807b',
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 18,
+    marginBottom: 18,
+    alignSelf: 'flex-start',
+  },
+  familyBoxText: {
+    color: '#fff',
+    fontSize: 38,
+    fontWeight: '400',
+    fontFamily: 'sans-serif',
+  },
+  protectGrowProsper: {
+    color: '#d60000',
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginBottom: -25,
     textAlign: 'center',
-    padding: 20,
-    fontWeight: '700',
-    marginBottom: 1,
+    fontFamily: 'sans-serif',
   },
   subtitle: {
     fontSize: 15,
@@ -139,11 +158,15 @@ const styles = StyleSheet.create({
 
   },
   highlightText: {
-    backgroundColor: '#d4edda',
-    color: 'green',
-    paddingHorizontal: 8,
-    borderRadius: 6,
-    fontWeight: 'bold',
+  backgroundColor:'#047871',
+  color: '#fff',
+  paddingHorizontal:8,
+ 
+  borderRadius: 6,
+  fontWeight: 'bold',
+ 
+  
+  
   },
   highlightColumn: {
     marginTop: 8,
@@ -159,14 +182,23 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     paddingHorizontal: 16,
   },
-  imageTop: {
-    borderRadius: 15,
-    marginBottom: 15,
+  familyImageCard: {
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 80,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 60,
+    marginBottom: 18,
     resizeMode: 'cover',
-  },
-  family1Image: {
-    borderRadius: 20,
-    marginBottom: 20,
+    alignSelf: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.10,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 5,
+    borderWidth: 2,
+    borderColor: '#e0e0e0',
+    overflow: 'hidden',
   },
   textContainer: {
     width: '95%',
@@ -196,7 +228,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   readMoreBtn: {
-    backgroundColor: '#d40000',
+  backgroundColor: '#0b3a55',
     borderRadius: 8,
     paddingHorizontal: 20,
     paddingVertical: 10,

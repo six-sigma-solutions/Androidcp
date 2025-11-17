@@ -125,7 +125,7 @@ const VisionMission: React.FC = () => {
 
 			{sections.map((section, index) => (
 				<View key={index} style={styles.visionBlock}>
-					<Image source={section.img} style={styles.sectionImage} />
+											<Image source={section.img} style={[styles.sectionImage, { width: '100%', height: '100%', resizeMode: 'cover' }]} />
 					<View style={styles.visionText}>
 						{section.points.map((point, i) => (
 							<View key={i} style={styles.visionPoint}>
@@ -146,7 +146,7 @@ const VisionMission: React.FC = () => {
 				>
 					{galleryImages.map((img, idx) => (
 						<View key={idx} style={styles.galleryItem}>
-							<Image source={img} style={styles.galleryImage} resizeMode="cover" />
+															<Image source={img} style={[styles.galleryImage, { width: '100%', height: '100%', resizeMode: 'cover' }]} />
 							<Animated.Text
 								style={[
 									styles.arrow,

@@ -39,7 +39,7 @@ export default function Health() {
 
       {/* === QUOTE HEADER === */}
       <Text style={styles.sectionHeader}>
-        {"My health is my greatest wealth. 😊".replace(/["']/g, "")}
+        {"My health is my greatest wealth.".replace(/["']/g, "")}
       </Text>
 
       {/* === HEALTH CARDS === */}
@@ -47,7 +47,7 @@ export default function Health() {
         {[
           {
             img: require("../../assets/health1.jpg"),
-            color: "#27b4f0ff",
+            color: "#fff",
             quotes: [
               "Health and fitness are not temporary, they are my lifetime goal.",
               "Health is not a destination , it’s a lifelong evolution.",
@@ -56,7 +56,7 @@ export default function Health() {
           },
           {
             img: require("../../assets/health2.jpg"),
-            color: "#b11597",
+            color: "#fff",
             quotes: [
               "I am committed to wellness for life.",
               "Wellness is not a season, it’s my soul’s commitment.",
@@ -65,7 +65,7 @@ export default function Health() {
           },
           {
             img: require("../../assets/health3.jpg"),
-            color: "#34004d",
+            color: "#fff",
             quotes: [
               "I need lifelong health and fitness.",
               "I’m powered by purpose strong for life.",
@@ -74,7 +74,7 @@ export default function Health() {
           },
           {
             img: require("../../assets/health4.jpg"),
-            color: "#002770",
+            color: "#fff",
             quotes: [
               "I want to be fit, strong and energetic for my entire life.",
               "Forever active, forever alive, forever me.",
@@ -166,8 +166,15 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: "700",
     textAlign: "center",
-    color: "#002770",
+    color: "#fff",
     marginVertical: 20,
+    backgroundColor: '#047871',
+    borderRadius: 18,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    overflow: 'hidden',
+    alignSelf: 'center',
+    minWidth: 220,
   },
 
   hero: {
@@ -176,18 +183,29 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 
+
   heroImageContainer: {
-    width: "100%",
-    height: 350,
-    borderRadius: 20,
+    width: 320,
+    height: 320,
     overflow: "hidden",
     marginBottom: 15,
+    borderTopLeftRadius: 120,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 150,
+    backgroundColor: "#fff",
+    alignSelf: "center",
+    elevation: 6,
+    shadowColor: "#000",
+    shadowOpacity: 0.12,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 4 },
   },
 
-  heroImage: { 
-    width: "100%", 
-    height: "100%", 
-    resizeMode: "cover" as const 
+  heroImage: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover" as const,
   },
 
   heroContent: {
@@ -205,8 +223,8 @@ const styles = StyleSheet.create({
   },
 
   colorHealthy: { color: "#d32a2a" },
-  colorHappy: { color: "#084700" },
-  colorWealthy: { color: "#002770" },
+  colorHappy: { color: "#047871" },
+  colorWealthy: { color: "#7a7272" },
 
   heroText: {
     fontSize: 17,
@@ -236,12 +254,22 @@ const styles = StyleSheet.create({
   shadowRadius: 6,
   elevation: 4,
 },
+
   cardImage: {
     width: "100%",
-    height: 500, // Increased from 600 for better visibility
-    borderRadius: 20,
+    height: 500,
     marginBottom: 15,
     resizeMode: "cover" as const,
+    borderTopLeftRadius: 120,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 80,
+    overflow: "hidden",
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOpacity: 0.10,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
   },
 
   cardBox: {
@@ -253,7 +281,7 @@ const styles = StyleSheet.create({
   },
 
   cardText: {
-    color: "#fff",
+    color: "black",
     fontWeight: "700",
     fontSize: 20,
     textAlign: "center",
@@ -264,7 +292,7 @@ const styles = StyleSheet.create({
 
   footerCard: { paddingHorizontal: 20, marginTop: 40 },
   footer: {
-    backgroundColor: "#000",
+    backgroundColor: "#817676",
     borderRadius: 16,
     paddingVertical: 25,
     paddingHorizontal: 15,
@@ -272,7 +300,7 @@ const styles = StyleSheet.create({
   },
 
   footerQuoteEnglish: {
-    color: "#fff",
+  color: "#ffe600",
     fontWeight: "700",
     fontSize: 12,
     marginBottom: 10,
@@ -282,7 +310,7 @@ const styles = StyleSheet.create({
 
 
    footerQuotenew: {
-    color: "#fff",
+  color: "#ffe600",
     fontWeight: "700",
     fontSize: 12,
     marginBottom: 10,
@@ -290,7 +318,7 @@ const styles = StyleSheet.create({
     marginLeft:60
   },
   footerQuoteTamil: {
-    color: "#fffb2c",
+  color: "#1aff7a",
     fontWeight: "700",
     fontSize: 10,
     textAlign: "left",
@@ -314,7 +342,7 @@ const styles = StyleSheet.create({
   },
 
   footerQuoteTamilsecondtitle: {
-    color: "#fffb2c",
+  color: "#1aff7a",
     fontWeight: "600",
     fontSize: 10,
     textAlign: "center",
@@ -322,7 +350,7 @@ const styles = StyleSheet.create({
   },
 
   footerQuoteTamilsecond3: {
-    color: "#fffb2c",
+  color: "#fff",
     fontWeight: "600",
     fontSize: 10,
     textAlign: "center",
@@ -331,7 +359,7 @@ const styles = StyleSheet.create({
   },
 
   footerQuoteTamilsecond4: {
-    color: "#fffb2c",
+  color: "#1aff7a",
     fontWeight: "600",
     fontSize: 10,
     textAlign: "center",
@@ -341,7 +369,7 @@ const styles = StyleSheet.create({
   },
 
   btnPrimary: {
-    backgroundColor: "#0f766e",
+    backgroundColor: "#0b3a55",
     paddingVertical: 14,
     paddingHorizontal: 40,
     borderRadius: 30,

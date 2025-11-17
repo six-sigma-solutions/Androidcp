@@ -30,9 +30,9 @@ export default function TabsLayout() {
             borderTopWidth: 0.6,
             borderTopColor: "#ccc",
             height: BASE_HEIGHT + bottomInset,
-            paddingBottom: bottomInset > 0 ? bottomInset : 8,
+            paddingBottom: (bottomInset > 0 ? bottomInset : 18),
             paddingTop: 0,
-            marginBottom: -10,
+            // marginBottom removed to move tab bar up
           },
           tabBarLabelStyle: {
             fontSize: isTablet ? 15 : 13,

@@ -15,7 +15,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, useRouter } from "expo-router";
 import { useAuth } from "../contexts/AuthContext";
 import { signOut } from "firebase/auth";
-import { auth } from "../lib/firebase";
+
 import DrawerMenu from "./DrawerMenu";
 import { useResponsive } from "../hooks/use-responsive";
 
@@ -36,32 +36,15 @@ export default function Navbar() {
 
   // ✅ Direct require for production builds - this ensures the logo is bundled
   const logoSource = require("../assets/dailymoney.png");
-  
+
   // Debug logging for production issues
   console.log('[Navbar] Logo source:', logoSource);
 
-  async function onLogout() {
-    if (signingOut) return; // Prevent multiple logout attempts
-    
-    setSigningOut(true);
-    try {
-      await signOut(auth);
-      console.log('[Navbar] Sign out successful');
-      // Navigation will happen automatically via auth state change
-      // No need to manually navigate here
-    } catch (err) {
-      console.error("Logout failed", err);
-      Alert.alert("Error", "Failed to sign out. Please try again.");
-    } finally {
-      setSigningOut(false);
-    }
-  }
-
-  console.log("✅ Navbar rendered");
+  // Remove unreachable/unfinished onLogout and log
 
   return (
     <SafeAreaView style={styles.safeArea} edges={["top"]}>
-              <View style={[styles.navbar, { height: navbarHeight, paddingHorizontal: isTablet ? 24 : 12 }]}>
+      <View style={[styles.navbar, { height: navbarHeight, paddingHorizontal: isTablet ? 24 : 12 }]}> 
         {/* Left Hamburger */}
         <TouchableOpacity
           activeOpacity={0.8}

@@ -94,19 +94,19 @@ export default function Elder() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fafafa" },
 
-  header: { marginVertical: 20, paddingHorizontal: 20 },
+  header: { marginVertical: 20, paddingHorizontal: 20 ,backgroundColor:'#047871', borderRadius:8, alignItems:'center', justifyContent:'center' },
   headerText: {
     fontSize: 26,
     padding:20,
     fontWeight: "700",
     textAlign: "center",
-    color: "forestgreen",
+    color: "#fff",
   },
 
   card: {
     backgroundColor: "#fff",
     borderRadius: 20,
-    marginHorizontal: 16,
+    marginHorizontal: 13,
     marginVertical: 12,
     padding: 16,
     alignItems: "center",
@@ -122,19 +122,23 @@ const styles = StyleSheet.create({
     height: 420,
     borderRadius: 15,
     marginBottom: 12,
+     borderTopLeftRadius: 60,
+    borderBottomRightRadius: 60,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 0,
   },
 
   text: {
-    fontSize: 15,
-    lineHeight: 25,
+    fontSize: 15.4,
+    lineHeight: 29,
     textAlign: "justify",
     color: "#0f172a",
-    fontWeight: "500",
+    fontWeight: "600",
   },
 
   viewMoreWrap: { alignItems: "center", marginVertical: 30 },
   viewMoreBtn: {
-    backgroundColor: "#1a3ef5",
+    backgroundColor: "#0b3a55",
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 30,

@@ -19,7 +19,9 @@ export default function Entrepreneur() {
     <AutoScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Hero */}
       <View style={styles.heroSection}>
-        <Text style={styles.heroTitle}>Empowering You to Lead, Build and Grow</Text>
+        <View style={styles.heroBanner}>
+          <Text style={styles.heroBannerText}>Empowering You to Lead, Build and Grow</Text>
+        </View>
         <Image
           source={require("../../../assets/entphead1.png")}
           style={styles.heroImage}
@@ -34,7 +36,7 @@ export default function Entrepreneur() {
 Freedom is my first goal, purpose is my next.
 Self-leadership is my success story.
 I want to build a life that reflects my values.`,
-          bgColor: "#252525ff",
+          bgColor: "#047871",
           textColor: "#fff",
         },
         {
@@ -42,8 +44,8 @@ I want to build a life that reflects my values.`,
           text: `I'm ready to start, build and grow something of my own.
 I’m ready to take my first step toward independence.
 I’m ready to shape my own success.`,
-          bgColor: "#b9b9b2ff",
-          textColor: "#000",
+          bgColor: "#047871",
+          textColor: "#ffffffff",
         },
         {
           image: require("../../../assets/entp3.jpg"),
@@ -51,7 +53,7 @@ I’m ready to shape my own success.`,
 I choose independence over comfort.
 I’m ready to create my own future.
 I’m ready to launch my own vision.`,
-          bgColor: "#a33b11ff",
+          bgColor: "#047871",
           textColor: "#fff",
         },
         {
@@ -59,8 +61,8 @@ I’m ready to launch my own vision.`,
           text: `I'm looking for entrepreneurship to create opportunities.
 I’m drawn to entrepreneurship to make opportunities.
 I choose entrepreneurship to shape opportunities.`,
-          bgColor: "#b3ece8c4",
-          textColor: "#000",
+          bgColor: "#047871",
+          textColor: "#ffffffff",
         },
         {
           image: require("../../../assets/entp5.jpg"),
@@ -68,7 +70,7 @@ I choose entrepreneurship to shape opportunities.`,
 Yes,I turn dreams into reality through my action.
 I’m committed to turning vision into reality.
 Dreams are meant to be built, not just dreamed.`,
-          bgColor: "#34657cff",
+          bgColor: "#047871",
           textColor: "#fff",
         },
         {
@@ -77,7 +79,7 @@ Dreams are meant to be built, not just dreamed.`,
 I choose to lead rather than follow.
 I aim to set the direction,not just follow it.
 Leadership is my choice, not conformity.`,
-          bgColor: "#3c3d2dff",
+          bgColor: "#047871",
           textColor: "#ffffffff",
         },
         {
@@ -86,8 +88,8 @@ Leadership is my choice, not conformity.`,
 I’m willing to take chances for success.
 I’m ready to embrace challenges.
 I’m not afraid to take bold steps towards my goal.`,
-          bgColor: "#dbf79cff",
-          textColor: "#000000ff",
+          bgColor: "#047871",
+          textColor: "#ffffffff",
         },
         {
           image: require("../../../assets/entp8.jpg"),
@@ -95,28 +97,18 @@ I’m not afraid to take bold steps towards my goal.`,
 I dream of creating wealth and making a difference.
 My goal is to build economic freedom and inspire change.
 My vision combines financial success with social impact.`,
-          bgColor: "#dfdfdfff",
-          textColor: "#000",
+          bgColor: "#047871",
+          textColor: "#ffffffff",
         },
       ].map((row, index) => (
-        <View key={index} style={[styles.row, { backgroundColor: row.bgColor }]}>
-          <Image 
-            source={row.image} 
+        <View key={index} style={[styles.row, { backgroundColor: row.bgColor }]}> 
+          <Image
+            source={row.image}
             style={[
-              index === 0 ? styles.entp1Image : 
-              index === 6 ? styles.entp7Image : styles.image,
-              index === 0 
-                ? { 
-                    height: isTablet ? 520 : isPhone ? 250 : 470,
-                    width: isTablet ? '95%' : isPhone ? '100%' : '95%'
-                  }
-                : index === 6 
-                ? { 
-                    height: isTablet ? 550 : isPhone ? 300 : 500,
-                    width: isTablet ? '98%' : isPhone ? '100%' : '98%'
-                  }
-                : {}
-            ]} 
+              styles.curvedCardImage,
+              row.image === require("../../../assets/entp3.jpg") ? { marginTop: 23, height: 400 } : null,
+                row.image === require("../../../assets/entp7.jpg") ? { height: 240, width: '90%', alignSelf: 'center' } : null
+            ]}
           />
           <View style={styles.textBox}>
             <Text style={[styles.quote, { color: row.textColor }]}>{row.text}</Text>
@@ -148,6 +140,23 @@ My vision combines financial success with social impact.`,
 }
 
 const styles = StyleSheet.create({
+  heroBanner: {
+    backgroundColor: '#047871',
+    borderRadius: 18,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+    width: '100%',
+    alignSelf: 'center',
+  },
+  heroBannerText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 25,
+    textAlign: 'center',
+  },
   container: { flex: 1, backgroundColor: "#fff" },
 
   heroSection: {
@@ -180,36 +189,17 @@ const styles = StyleSheet.create({
     borderRadius: 14,
   },
 
-  image: {
-    width: "90%",
+  curvedCardImage: {
+    width: "100%",
     height: 400,
-    borderRadius: 15,
+    borderTopLeftRadius: 60,
+    borderBottomRightRadius: 60,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 0,
     resizeMode: "cover",
     marginBottom: 12,
-  },
-
-  entp1Image: {
-    borderRadius: 20,
-    marginBottom: 15,
-    resizeMode: 'cover', // Full cover mode to fill the entire area
-    shadowColor: '#252525',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
-  },
-
-  entp7Image: {
-    borderRadius: 30,
-    marginBottom: 20,
-    resizeMode: 'cover', // Full cover mode for jumping silhouette
-    borderWidth: 3,
-    borderColor: '#dbf79c',
-    shadowColor: '#dbf79c',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.5,
-    shadowRadius: 12,
-    elevation: 12,
+    backgroundColor: '#fff',
+    marginTop: 10,
   },
 
   textBox: {
@@ -225,7 +215,7 @@ const styles = StyleSheet.create({
   },
 
   btnPrimary: {
-    backgroundColor: "#0f766e",
+    backgroundColor: "#0b3a55",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 30,

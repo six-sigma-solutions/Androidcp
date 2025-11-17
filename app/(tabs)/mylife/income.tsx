@@ -40,12 +40,18 @@ export default function Income() {
         >
           <Image
             source={section.image}
-            style={[styles.image, index === sections.length - 1 && styles.lastImage]}
+            style={[
+              section.image === require("../../../assets/income-12.jpg")
+                ? styles.income12Image
+                : styles.image,
+              index === sections.length - 1 && styles.lastImage
+            ]}
           />
           <View style={styles.textBox}>
             <Text style={styles.text}>{section.text}</Text>
           </View>
         </View>
+
       ))}
 
       {/* View More Button */}
@@ -72,6 +78,20 @@ export default function Income() {
 }
 
 const styles = StyleSheet.create({
+  income12Image: {
+    width: '100%',
+    height: 340,
+    borderRadius: 0,
+    resizeMode: 'cover',
+    marginBottom: 0,
+    backgroundColor: '#fff',
+    alignSelf: 'stretch',
+      borderTopLeftRadius: 60,
+    borderBottomRightRadius: 60,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 0,
+   
+  },
   lastSectionCard: {
     backgroundColor: '#f5f5f5',
     borderColor: '#0b3a55',
@@ -82,22 +102,22 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   lastImage: {
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-    borderBottomLeftRadius: 40,
-    borderBottomRightRadius: 40,
+    borderTopLeftRadius: 60,
+    borderBottomRightRadius: 60,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 0,
     borderWidth: 2,
     borderColor: '#0b3a55',
-    width: '90%',
-    height: 500,
-    alignSelf: 'center',
-    marginTop: 12,
-    marginBottom: 8,
+    width: '100%',
+    height: 480,
+    alignSelf: 'stretch',
+    marginTop: 0,
+    marginBottom: 0,
     backgroundColor: '#fff',
   },
   container: { flex: 1, backgroundColor: "#fafafa" },
 
-  header: { backgroundColor: "forestgreen", paddingVertical: 20, alignItems: "center", },
+  header: { backgroundColor: "#047871", paddingVertical: 20, alignItems: "center", },
   headerText: { color: "#fff", fontSize: 26, fontWeight: "700", textAlign: "center" , padding:10},
 
   sectionCard: {
@@ -115,15 +135,20 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    width: "100%",
-    height: 500,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    resizeMode: "cover",
+    width: '100%',
+    height: 480,
+    borderTopLeftRadius: 60,
+    borderBottomRightRadius: 60,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 0,
+    resizeMode: 'cover',
+    marginBottom: 0,
+    backgroundColor: '#fff',
+    alignSelf: 'stretch',
   },
 
   textBox: { padding: 16 },
-  text: { fontSize: 15, lineHeight: 25, textAlign: "justify",fontWeight: "500", color: "#333" },
+  text: { fontSize: 17, lineHeight: 25, textAlign: "justify",fontWeight: "700", color: "#333" },
 
   viewMoreWrap: { alignItems: "center", marginVertical: 30 },
   viewMoreBtn: {

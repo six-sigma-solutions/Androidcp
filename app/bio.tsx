@@ -249,7 +249,7 @@ export default function Bio() {
         <View style={styles.footerCard}>
           <View style={styles.footerLogoWrap}>
             <Image
-              source={{  uri: "https://res.cloudinary.com/dgay8ba3o/image/upload/v1762702091/dailymoney222_guqvud.png" }}
+              source={{ uri: "https://res.cloudinary.com/dgay8ba3o/image/upload/v1762702091/dailymoney222_guqvud.png", }}
               style={styles.footerLogo}
               resizeMode="contain"
             />

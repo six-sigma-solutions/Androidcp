@@ -18,7 +18,6 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import MaskedView from "@react-native-masked-view/masked-view";
 import PopupModal from "../../components/PopupModal";
 import AutoScrollView from "../../components/AutoScrollView";
-import AndroidVideoPlayer, { AndroidVideoPlayerRef } from "../../components/AndroidVideoPlayer";
 
 // Data for the bullet points to make the code cleaner
 const solutions = [
@@ -47,48 +46,22 @@ export default function HomeScreen() {
   // popup state
   const [showPopup, setShowPopup] = useState(false);
 
-  const mainVideoRef = React.useRef<AndroidVideoPlayerRef>(null);
-  const fallbackVideoRef = React.useRef<AndroidVideoPlayerRef>(null);
-  // State to track if the image is grayscale or color
-  const [isGrayscale, setIsGrayscale] = useState(true);
+  const mainVideoRef = React.useRef<Video>(null);
+  const fallbackVideoRef = React.useRef<Video>(null);
+  const scrollRef = React.useRef(null); // Ref for AutoScrollView
+  // Mask is always ON - no toggle needed
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [shouldPlayVideos, setShouldPlayVideos] = useState(true);
   const [isFocused, setIsFocused] = useState(true);
   const [videoKey, setVideoKey] = useState(0);
 
-  // --- Preload & MaskedView first-render fix ---
-  const [assetsReady, setAssetsReady] = useState(false);
-  const [rerenderKey, setRerenderKey] = useState(0);
-  const [forceVideoUpdate, setForceVideoUpdate] = useState(0);
-
-  useEffect(() => {
-    let mounted = true;
-    (async () => {
-      try {
-        await Asset.loadAsync([
-          require("../../assets/bg-mask.png"),
-          require("../../assets/budhha-video6.mp4"),
-          require("../../assets/budhha-video6.mp4"),
-        ]);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (e) {
-        // ignore – still try to render
-      } finally {
-        if (!mounted) return;
-        setAssetsReady(true);
-        // Force one extra composition pass (Android MaskedView quirk)
-        requestAnimationFrame(() => setRerenderKey((k) => k + 1));
-      }
-    })();
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  // --- Remove asset preloading for instant video/mask display ---
+  const [assetsReady] = useState(true); // Always true for fastest render
 
   // Auto-show popup when Home mounts
   useEffect(() => {
-    // small timeout so the screen has a chance to mount UI first
-    const t = setTimeout(() => setShowPopup(true), );
+    // Show popup instantly when Home mounts
+    const t = setTimeout(() => setShowPopup(true), 0);
     return () => clearTimeout(t);
   }, []);
 
@@ -97,33 +70,40 @@ export default function HomeScreen() {
     return () => {
       // Cleanup all video resources when component is destroyed
       if (mainVideoRef.current) {
-        mainVideoRef.current.unload().catch(console.log);
+        mainVideoRef.current.unloadAsync().catch(console.log);
       }
       if (fallbackVideoRef.current) {
-        fallbackVideoRef.current.unload().catch(console.log);
+        fallbackVideoRef.current.unloadAsync().catch(console.log);
       }
     };
   }, []);
 
-  // Simple focus handler for AndroidVideoPlayer
+  // Robust video focus handler for Android reliability
   useFocusEffect(
     React.useCallback(() => {
-      console.log('Home page focused - setting video states...');
+      // Scroll to top
+      if (scrollRef.current && typeof scrollRef.current.scrollTo === 'function') {
+        scrollRef.current.scrollTo({ y: 0, animated: false });
+      }
+      // Reset videoLoaded to false to force instant remount and show
+      setVideoLoaded(false);
+      setVideoKey(prev => prev + 1);
       setIsFocused(true);
       setShouldPlayVideos(true);
-      setVideoLoaded(true);
-      setForceVideoUpdate(prev => prev + 1);
-
+      // Play video after remount
+      setTimeout(() => {
+        setVideoLoaded(true);
+        if (mainVideoRef.current) {
+          mainVideoRef.current.playAsync().catch(() => {});
+        }
+      }, 50);
+      // Cleanup
       return () => {
-        console.log('Home page unfocused - pausing videos...');
         setIsFocused(false);
         setShouldPlayVideos(false);
-        
-        // Pause videos using new refs
-        mainVideoRef.current?.pause().catch(() => {});
-        fallbackVideoRef.current?.pause().catch(() => {});
+        setVideoLoaded(false);
       };
-    }, [assetsReady])
+    }, [])
   );
   // --- end fix ---
 
@@ -143,11 +123,11 @@ export default function HomeScreen() {
         }
         buttonText={"Get in →"}
       />
-       <AutoScrollView style={styles.container}>    
+  <AutoScrollView ref={scrollRef} style={styles.container}>    
 
       {/* Top banner: DM - Daily Message (45deg gradient) */}
       <LinearGradient
-        colors={["#cedb1c", "#79d8d8"]}
+        colors={["#088b8b","#088b8b"]}
         start={[0, 0]}
         end={[1, 1]}
         style={styles.topBanner}
@@ -163,53 +143,45 @@ export default function HomeScreen() {
  
       {/* ========== HERO SECTION (FIXED) ========== */}
       <View style={styles.heroSection}>
-        {/* Masked Buddha */}
-        {assetsReady ? (
-          <AndroidVideoPlayer
-            key={`main-android-player-${rerenderKey}`}
-            ref={mainVideoRef}
-            source={require("../../assets/budhha-video6.mp4")}
-            style={styles.maskedViewStyle}
-            useMask={true}
-            maskSource={
+        {/* 🎭 SUPER FAST MASKED VIDEO - MASK NOW VISIBLE! */}
+        <MaskedView
+          key={`masked-video-${videoKey}`}
+          style={styles.maskedViewStyle}
+          maskElement={
+            <View style={styles.maskContainer}>
               <Image
                 source={require("../../assets/bg-mask.png")}
                 style={styles.maskImage}
               />
-            }
-            shouldPlay={shouldPlayVideos}
-            isFocused={isFocused}
-            forceUpdate={forceVideoUpdate}
-            onPress={() => setIsGrayscale(!isGrayscale)}
-            onLoad={() => {
-              setVideoLoaded(true);
-              console.log('Main AndroidVideoPlayer loaded');
-            }}
-            onError={(error) => {
-              console.log('Main AndroidVideoPlayer error:', error);
-              setVideoLoaded(true);
-            }}
-          />
-        ) : (
-          <AndroidVideoPlayer
-            key={`fallback-android-player-${rerenderKey}`}
-            ref={fallbackVideoRef}
+            </View>
+          }
+        >
+          <Video
+            key={`video-${videoKey}`}
+            ref={mainVideoRef}
             source={require("../../assets/budhha-video6.mp4")}
-            style={styles.maskedViewStyle}
-            useMask={false}
-            shouldPlay={shouldPlayVideos}
-            isFocused={isFocused}
-            forceUpdate={forceVideoUpdate}
+            style={styles.buddhaImage}
+            resizeMode={ResizeMode.COVER}
+            shouldPlay={isFocused}
+            isLooping
+            isMuted
+            useNativeControls={false}
             onLoad={() => {
               setVideoLoaded(true);
-              console.log('Fallback AndroidVideoPlayer loaded');
+              if (isFocused && mainVideoRef.current) {
+                mainVideoRef.current.playAsync().catch(() => {});
+              }
             }}
-            onError={(error) => {
-              console.log('Fallback AndroidVideoPlayer error:', error);
+            onError={() => {
               setVideoLoaded(true);
             }}
           />
-        )}
+        </MaskedView>
+
+        {/* Video Status Indicator */}
+        <View style={styles.maskStatusContainer}>
+          
+        </View>
 
         {/* The hero text content now follows the masked image */}
         <View style={styles.heroContent}>
@@ -272,6 +244,15 @@ export default function HomeScreen() {
         ))}
       </View>
 
+
+
+      {/* ========== VISION TITLE BANNER (above phone images) ========== */}
+      <View style={styles.visionBannerWrapper}>
+        <View style={styles.visionBanner}>
+          <Text style={styles.visionBannerText}>Vision</Text>
+        </View>
+      </View>
+
       {/* ========== SOLUTIONS GRID ========== */}
       <View style={styles.solutionsGrid}>
         <View style={styles.solutionCard}>
@@ -288,7 +269,7 @@ export default function HomeScreen() {
            Vision & Mission is your  <Text style={styles.redText}>        Future Generation</Text>
           </Text>
           <Image
-            source={require("../../assets/phone2.png")}
+            source={require("../../assets/phone22.png")}
             style={styles.solutionCardImage}
           />
         </View>
@@ -297,9 +278,15 @@ export default function HomeScreen() {
            Vision & Mission is your <Text style={styles.redText}> Generation After Generations </Text>
           </Text>
           <Image
-            source={require("../../assets/phone3.png")}
+            source={require("../../assets/phone33.png")}
             style={styles.solutionCardImage}
           />
+        </View>
+      </View>
+
+       <View style={styles.visionBannerWrapper}>
+        <View style={styles.visionBanner}>
+          <Text style={styles.visionBannerText}>Mission</Text>
         </View>
       </View>
 
@@ -356,11 +343,7 @@ export default function HomeScreen() {
           
           </View>
           <View style={styles.teamMemberCard}>
-            <Image
-              source={{ uri: "https://via.placeholder.com/120" }}
-              style={styles.teamMemberImage}
-            />
-            <Text style={styles.teamMemberName}>xxxxx</Text>
+            
             
           </View>
         </View>
@@ -424,16 +407,17 @@ export default function HomeScreen() {
               <TouchableOpacity onPress={() => router.push("/family")}>
                 <Text style={styles.footerLink}>Family </Text>
               </TouchableOpacity>
-
-              <TouchableOpacity onPress={() => router.push("/about/overview")}>
-                <Text style={styles.footerLink}>About </Text>
-              </TouchableOpacity>
-
               <TouchableOpacity
                 onPress={() => router.push("/mylife/entrepreneur")}
               >
                 <Text style={styles.footerLink}>My Life </Text>
               </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => router.push("/about/overview")}>
+                <Text style={styles.footerLink}>About </Text>
+              </TouchableOpacity>
+
+              
             </View>
 
             <View style={styles.footerLinkSection}>
@@ -491,6 +475,29 @@ export default function HomeScreen() {
 
 // ========== STYLESHEET ==========
 const styles = StyleSheet.create({
+  visionBannerWrapper: {
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  visionBanner: {
+    backgroundColor: '#047871',
+    borderRadius: 28,
+    paddingVertical: 18,
+    paddingHorizontal: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: 100,
+    maxWidth: '70%',
+  },
+  visionBannerText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 30,
+    textAlign: 'center',
+    lineHeight: 27,
+  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -774,7 +781,7 @@ const styles = StyleSheet.create({
   ctaButtonTextSecondary: {
     color: "#e63946",
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: "bold"
   },
   // Footer
   footer: {
@@ -796,14 +803,15 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingVertical: 18,
     paddingHorizontal: 20,
+    backgroundColor:'#047871',
   },
   bannerInner: { maxWidth: '100%' },
-  bannerTitle: { fontSize: 22, fontWeight: '700', color: '#0f172a' ,textAlign:'center'},
-  bannerSubtitle: { fontSize: 18, marginTop: 4, color: '#0f172a',textAlign:'center' },
-  bannerBody: { fontSize: 16, marginTop: 8, color: '#0f172a', lineHeight: 22 },
+  bannerTitle: { fontSize: 22, fontWeight: '700', color: 'white' ,textAlign:'center'},
+  bannerSubtitle: { fontSize: 18, marginTop: 4, color: 'white',textAlign:'center' },
+  bannerBody: { fontSize: 16, marginTop: 8, color: 'white', lineHeight: 22 },
   bannerText: {
     fontSize: 20,
-    color: '#0f172a',
+    color: 'white',
     lineHeight: 32,
     fontWeight: '600',
     
@@ -886,7 +894,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   socialIcon: {
-    marginRight: 8,
+    marginRight: 8
   },
   // Video loading styles
   videoLoadingContainer: {
@@ -904,5 +912,20 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  // Mask Status Styles
+  maskStatusContainer: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    
+    borderRadius: 20,
+    marginBottom: 10,
+    alignSelf: 'center',
+  },
+  maskStatusText: {
+    color: '#ffffff',
+    fontSize: 14,
+    fontWeight: '600',
+    textAlign: 'center',
   },
 });

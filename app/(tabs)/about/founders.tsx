@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   viewMore: {
-    backgroundColor: '#d32a2a',
+    backgroundColor: '#0b3a55',
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 25,

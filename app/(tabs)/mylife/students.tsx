@@ -111,13 +111,13 @@ export default function Students() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fafafa" },
 
-  header: { marginVertical: 20, paddingHorizontal: 20 },
+  header: { marginVertical: 20, paddingHorizontal: 20,backgroundColor:'#047871', borderRadius:8, alignItems:'center', justifyContent:'center' },
   headerText: {
     fontSize: 26,
     padding: 20,
     fontWeight: "700",
     textAlign: "center",
-    color: "darkgreen",
+    color: "#fff",
   },
 
   card: {
@@ -146,6 +146,10 @@ const styles = StyleSheet.create({
     height: 490,
     borderRadius: 15,
     marginBottom: 12,
+    borderTopLeftRadius: 60,
+    borderBottomRightRadius: 60,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 0,
     
   },
   imageShort: {
@@ -153,10 +157,10 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 15,
-    lineHeight: 25,
+    fontSize: 15.4,
+    lineHeight: 26,
     textAlign: "justify",
-    fontWeight: "500",
+    fontWeight: "600",
     color: "#0f172a",
   },
 
