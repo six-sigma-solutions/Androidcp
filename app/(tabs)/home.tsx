@@ -269,7 +269,7 @@ export default function HomeScreen() {
            Vision & Mission is your  <Text style={styles.redText}>        Future Generation</Text>
           </Text>
           <Image
-            source={require("../../assets/phone22.png")}
+            source={require("../../assets/phone2.jpg")}
             style={styles.solutionCardImage}
           />
         </View>
@@ -278,7 +278,7 @@ export default function HomeScreen() {
            Vision & Mission is your <Text style={styles.redText}> Generation After Generations </Text>
           </Text>
           <Image
-            source={require("../../assets/phone33.png")}
+            source={require("../../assets/phone3.jpg")}
             style={styles.solutionCardImage}
           />
         </View>
